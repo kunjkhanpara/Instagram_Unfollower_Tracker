@@ -25,3 +25,23 @@ h1 {
   text-align: center;
   margin-bottom: 20px;
 }
+
+.start-button {
+  text-decoration: none;
+}
+
+.start-button button {
+  padding: 12px 24px;
+  font-size: 18px;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-top: 20px;
+  transition: background-color 0.3s ease;
+}
+
+.start-button button:hover {
+  background-color: #2980b9;
+}
