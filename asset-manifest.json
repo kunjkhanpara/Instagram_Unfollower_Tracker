@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.css": "/Instagram_Unfollower_Tracker/static/css/main.5bb112ce.css",
+    "main.js": "/Instagram_Unfollower_Tracker/static/js/main.cffaaa4e.js",
+    "static/js/239.8160a019.chunk.js": "/Instagram_Unfollower_Tracker/static/js/239.8160a019.chunk.js",
+    "static/js/213.05611d9f.chunk.js": "/Instagram_Unfollower_Tracker/static/js/213.05611d9f.chunk.js",
+    "static/js/732.cede3068.chunk.js": "/Instagram_Unfollower_Tracker/static/js/732.cede3068.chunk.js",
+    "static/js/488.d6541049.chunk.js": "/Instagram_Unfollower_Tracker/static/js/488.d6541049.chunk.js",
+    "index.html": "/Instagram_Unfollower_Tracker/index.html",
+    "main.5bb112ce.css.map": "/Instagram_Unfollower_Tracker/static/css/main.5bb112ce.css.map",
+    "main.cffaaa4e.js.map": "/Instagram_Unfollower_Tracker/static/js/main.cffaaa4e.js.map",
+    "239.8160a019.chunk.js.map": "/Instagram_Unfollower_Tracker/static/js/239.8160a019.chunk.js.map",
+    "213.05611d9f.chunk.js.map": "/Instagram_Unfollower_Tracker/static/js/213.05611d9f.chunk.js.map",
+    "732.cede3068.chunk.js.map": "/Instagram_Unfollower_Tracker/static/js/732.cede3068.chunk.js.map",
+    "488.d6541049.chunk.js.map": "/Instagram_Unfollower_Tracker/static/js/488.d6541049.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.5bb112ce.css",
+    "static/js/main.cffaaa4e.js"
+  ]
+}
