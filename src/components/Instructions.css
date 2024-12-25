@@ -1,0 +1,182 @@
+/* Global Styles */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #f1f2f6;
+  color: #333;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+/* Instructions Container */
+.instructions-container {
+  max-width: 1000px;
+  margin: auto;
+  padding: 40px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+  font-family: 'Roboto', sans-serif;
+  line-height: 1.6;
+  color: #555;
+  transition: all 0.3s ease-in-out;
+  background-color: #f9f9f9; /* Add light gray background */
+  overflow: auto; /* Make the container scrollable */
+  max-height: 90vh; /* Ensure it doesn't overflow the screen height */
+}
+
+.instructions-container h2 {
+  font-size: 2.2rem;
+  color: #3f51b5;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.instructions-container h3 {
+  font-size: 1.8rem;
+  color: #2196f3;
+  margin-top: 30px;
+  margin-bottom: 15px;
+}
+
+.instructions-container .intro-text {
+  font-size: 1.1rem;
+  color: #777;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.instructions-container .steps-list {
+  list-style-type: decimal;
+  margin-left: 20px;
+  font-size: 1.1rem;
+  margin-bottom: 30px;
+}
+
+.instructions-container .steps-list li {
+  padding-left: 5px;
+  margin-bottom: 12px;
+  color: #4b4b4b;
+  font-weight: 400;
+}
+
+.instructions-container .instruction-text {
+  font-size: 1.1rem;
+  color: #555;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Apply light gray background for all steps */
+.instructions-container .steps-container {
+  background-color: #f9f9f9; /* Light gray background for all steps */
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* Navigation Buttons */
+.navigation-buttons {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.navigation-buttons button {
+  padding: 12px 25px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.go-to-upload-button {
+  background-color: #3498db;
+  color: white;
+}
+
+.go-to-upload-button:hover {
+  background-color: #2980b9;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 1024px) {
+  .instructions-container {
+    padding: 35px;
+  }
+
+  .instructions-container h2 {
+    font-size: 2rem;
+  }
+
+  .instructions-container h3 {
+    font-size: 1.6rem;
+  }
+
+  .instructions-container .steps-list {
+    font-size: 1rem;
+  }
+
+  .instructions-container .instruction-text {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  body {
+    padding: 10px;
+  }
+
+  .instructions-container {
+    padding: 25px;
+    margin: 10px;
+  }
+
+  .instructions-container h2 {
+    font-size: 1.8rem;
+  }
+
+  .instructions-container h3 {
+    font-size: 1.4rem;
+  }
+
+  .instructions-container .steps-list {
+    font-size: 0.95rem;
+  }
+
+  .instructions-container .instruction-text {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .instructions-container {
+    padding: 20px;
+    margin: 5px;
+  }
+
+  .instructions-container h2 {
+    font-size: 1.6rem;
+  }
+
+  .instructions-container h3 {
+    font-size: 1.2rem;
+  }
+
+  .instructions-container .steps-list {
+    font-size: 0.9rem;
+  }
+
+  .instructions-container .instruction-text {
+    font-size: 0.9rem;
+  }
+}
