@@ -1,16 +1,24 @@
 /* Main container for the file upload section */
 .file-upload-container {
   width: 100%;
-  max-width: 900px;
+  max-width: 800px;
   margin: 40px auto;
   padding: 20px;
   font-family: 'Roboto', sans-serif;
-  background-color: #f4f7fc; /* Soft, professional background */
+  background-color: #fdfdfd; /* Subtle background */
   border-radius: 10px;
-  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  flex-direction: column;
 }
 
 .header {
@@ -20,174 +28,108 @@
 }
 
 h1 {
-  font-size: 34px;
-  color: #2c3e50; /* Dark but professional text color */
+  font-size: 28px;
+  color: #2c3e50;
+  font-weight: bold;
   margin-bottom: 10px;
-  font-weight: 600;
   text-transform: uppercase;
 }
 
 .instructions-btn {
-  padding: 12px 24px;
-  background-color: #3498db; /* Blue for a trustworthy feel */
+  padding: 10px 20px;
+  background-color: #007bff;
   color: white;
   border: none;
   cursor: pointer;
   border-radius: 5px;
-  font-size: 18px;
+  font-size: 16px;
   transition: background-color 0.3s;
-  width: 100%;
-  margin-top: 20px;
 }
 
 .instructions-btn:hover {
-  background-color: #2980b9; /* Darker blue on hover */
+  background-color: #0056b3;
 }
 
 .upload-section {
   width: 100%;
-  text-align: center;
   margin-top: 20px;
+  text-align: center;
 }
 
 .upload-input {
   padding: 12px 20px;
-  font-size: 18px;
+  font-size: 16px;
   border-radius: 5px;
-  border: 1px solid #ddd;
+  border: 1px solid #ccc;
   width: 100%;
-  background-color: #fff;
-  transition: border-color 0.3s ease-in-out;
-}
-
-.upload-input:focus {
-  border-color: #3498db; /* Blue on focus */
-  outline: none;
+  max-width: 400px;
+  margin: auto;
 }
 
 .loading-spinner,
 .error-message {
   margin-top: 15px;
-  color: #e74c3c; /* Red for errors */
+  color: #e74c3c;
 }
 
 .result-container {
+  margin-top: 20px;
   width: 100%;
-  margin-top: 30px;
-  padding: 25px;
   background-color: #fff;
+  padding: 20px;
   border-radius: 8px;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
-  text-align: left;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
 }
 
 h2 {
-  color: #3498db; /* Blue for section headings */
-  font-size: 26px;
-  margin-bottom: 15px;
-  font-weight: 600;
+  font-size: 22px;
+  color: #007bff;
 }
 
-.total-count {
-  font-size: 20px;
-  color: #333;
-  margin-bottom: 15px;
-}
-
-.download-btn {
-  margin-top: 25px;
-  padding: 12px 25px;
-  background-color: #2ecc71; /* Green for download button */
-  color: white;
-  border: none;
-  cursor: pointer;
-  border-radius: 5px;
-  font-size: 18px;
-  transition: background-color 0.3s;
-  width: 100%;
-}
-
-.download-btn:hover {
-  background-color: #27ae60; /* Darker green on hover */
-}
-
-/* Scrollable container for the non-followers list */
 .non-followers-list-container {
-  max-height: 350px;
+  max-height: 300px;
   overflow-y: auto;
-  padding-right: 10px;
-  margin-top: 20px;
-  background-color: #f9f9f9;
-  border-radius: 5px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  margin-top: 10px;
 }
 
 .non-followers-list {
-  list-style-type: none;
   padding: 0;
-  margin: 0;
+  list-style: none;
 }
 
 .non-followers-list li {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  font-size: 18px;
-  color: #333;
-  margin: 15px 0;
-  padding: 12px;
-  background-color: #f8f9fa;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, background-color 0.3s ease;
-}
-
-.non-followers-list li:hover {
-  background-color: #e2e6ea;
-  transform: translateX(8px);
-}
-
-.list-number {
-  font-weight: 600;
-  color: #3498db;
-  margin-right: 12px;
+  padding: 10px;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+  margin-bottom: 8px;
 }
 
 .profile-link {
-  color: #3498db; /* Blue for profile links */
+  color: #007bff;
   text-decoration: none;
-  font-weight: 500;
-  transition: color 0.3s;
 }
 
-.profile-link:hover {
-  color: #2980b9; /* Darker blue on hover */
-  text-decoration: underline;
+.download-btn {
+  padding: 10px 20px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  margin-top: 20px;
 }
 
-.profile-link:focus {
-  outline: none;
-}
-
-/* Add some responsiveness */
 @media (max-width: 768px) {
   .file-upload-container {
-    width: 95%;
+    padding: 15px;
   }
-
   h1 {
-    font-size: 28px;
+    font-size: 22px;
   }
-
-  .instructions-btn {
-    font-size: 16px;
-  }
-
-  .upload-input {
-    font-size: 16px;
-  }
-
+  .instructions-btn,
   .download-btn {
-    font-size: 16px;
+    font-size: 14px;
   }
 }
