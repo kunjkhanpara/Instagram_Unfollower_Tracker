@@ -80,7 +80,7 @@ const FileUpload = () => {
     const doc = new jsPDF();
     const margin = 10;
     const lineHeight = 10;
-    const maxWidth = 180; // Adjust based on your needs
+    const maxWidth = 180;
     let yOffset = 20;
 
     // Title
