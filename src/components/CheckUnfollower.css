@@ -1,11 +1,13 @@
 .file-upload-container {
-    background-color: #f8f9fa; 
+    background-color: #f8f9fa;
     padding: 40px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    max-width: 600px;
+    max-width: 700px;
     margin: 30px auto;
     text-align: center;
+    overflow: auto;
+    height: auto;
 }
 
 h2 {
@@ -24,7 +26,7 @@ h2 {
     font-size: 1.1rem;
     font-weight: bold;
     color: white;
-    background-color: #007bff; /* Primary blue color */
+    background-color: #007bff;
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -36,16 +38,16 @@ h2 {
 }
 
 .custom-upload-btn:hover {
-    background-color: #0056b3; /* Darker blue on hover */
-    transform: scale(1.05); /* Slight zoom on hover */
+    background-color: #0056b3;
+    transform: scale(1.05);
 }
 
 .custom-upload-btn:active {
-    transform: scale(1); /* Reset zoom on click */
+    transform: scale(1);
 }
 
 .upload-input-hidden {
-    display: none; /* Hide the original file input */
+    display: none;
 }
 
 .loading-spinner {
@@ -115,14 +117,15 @@ h2 {
 .instructions-btn:hover {
     background-color: #218838;
 }
+
 .no-underline {
     text-decoration: none;
-  }
-  
-  .non-followers-list a:hover {
-    text-decoration: underline; /* Optional: underline on hover */
-  }
-  
+}
+
+.non-followers-list a:hover {
+    text-decoration: underline;
+}
+
 .pending-requests-btn {
     padding: 10px 20px;
     background-color: #17a2b8;
@@ -137,4 +140,61 @@ h2 {
 
 .pending-requests-btn:hover {
     background-color: #117a8b;
+}
+
+@media screen and (max-width: 1024px) {
+    .file-upload-container {
+        padding: 20px;
+        max-width: 90%;
+    }
+
+    h2 {
+        font-size: 1.8rem;
+    }
+
+    .custom-upload-btn, .download-btn, .instructions-btn, .pending-requests-btn {
+        width: 100%;
+        padding: 12px;
+        font-size: 1rem;
+    }
+
+    .non-followers-list {
+        max-height: 250px;
+    }
+
+    .loading-spinner {
+        font-size: 1rem;
+    }
+
+    .error-message {
+        font-size: 1rem;
+    }
+
+    .result-section {
+        margin-top: 10px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    .file-upload-container {
+        padding: 15px;
+        max-width: 95%;
+    }
+
+    .custom-upload-btn, .download-btn, .instructions-btn, .pending-requests-btn {
+        padding: 10px;
+        font-size: 0.9rem;
+    }
+
+    .non-followers-list {
+        max-height: 200px;
+    }
+
+    .loading-spinner, .error-message {
+        font-size: 0.9rem;
+    }
 }
