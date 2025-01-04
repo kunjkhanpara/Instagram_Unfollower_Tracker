@@ -7,7 +7,7 @@ import Ok from './components/ok'; // Import Ok component
 
 function App() {
   return (
-    <Router>
+    <Router basename="/Instagram_Unfollower_Tracker"> {/* Add basename for GitHub Pages */}
       <div className="App">
         <Routes>
           {/* Home Page Route */}
