@@ -1,18 +1,18 @@
-/* src/components/Instructions.css */
-
 .instructions-container {
-  background-color: #f0f8ff; /* Light blue background */
+  background-color: #f0f8ff;
   padding: 40px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   max-width: 600px;
   margin: auto;
   text-align: center;
+  overflow-y: auto;  /* Add this to ensure scrolling works */
+  max-height: 80vh; /* Limit the height to make it scrollable */
 }
 
 h2 {
   font-size: 2.8rem;
-  color: #0077b6; /* Soft blue color for heading */
+  color: #0077b6;
   margin-bottom: 20px;
 }
 
@@ -34,6 +34,10 @@ h2 {
   color: #333;
 }
 
+.steps-list li {
+  margin-bottom: 15px;
+}
+
 .instruction-text {
   font-size: 1.1rem;
   color: #555;
@@ -46,7 +50,7 @@ h2 {
 
 .go-to-upload-button {
   padding: 12px 30px;
-  background-color: #4caf50; /* Green button */
+  background-color: #4caf50;
   color: white;
   font-size: 1.2rem;
   border: none;
@@ -56,5 +60,48 @@ h2 {
 }
 
 .go-to-upload-button:hover {
-  background-color: #388e3c; /* Darker green on hover */
+  background-color: #388e3c;
+}
+
+@media (max-width: 767px) {
+  .instructions-container {
+    padding: 20px;
+    max-width: 100%;
+  }
+
+  h2 {
+    font-size: 2rem;
+  }
+
+  .intro-text {
+    font-size: 1rem;
+  }
+
+  .steps-list {
+    font-size: 1rem;
+  }
+
+  .instruction-text {
+    font-size: 1rem;
+  }
+
+  .go-to-upload-button {
+    font-size: 1rem;
+    padding: 10px 20px;
+  }
+
+  .steps-container {
+    margin-bottom: 20px;
+  }
+
+  .navigation-buttons {
+    margin-top: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .steps-container {
+    max-height: 200px;
+    overflow-y: scroll;
+  }
 }
