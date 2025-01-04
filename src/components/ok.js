@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import JSZip from 'jszip';
 import { jsPDF } from 'jspdf';
+import { useNavigate } from 'react-router-dom'; // Use this hook for navigation
 import './ok.css';
 
 const PendingRequests = () => {
   const [pendingRequests, setPendingRequests] = useState([]);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate(); // Declare useNavigate hook
 
   const handleFileUpload = async (e) => {
     setIsLoading(true);
@@ -105,12 +107,13 @@ const PendingRequests = () => {
         </div>
       )}
 
-      <button className="instructions-btn" onClick={() => window.location.href = '/instructions'}>
+      {/* Updated navigation */}
+      <button className="instructions-btn" onClick={() => navigate('/instructions')}>
         How to Find the ZIP File
       </button>
 
-      <button className="back-btn" onClick={() => window.location.href = '/check-unfollower'}>
-        Go Back to Check Pending Requests
+      <button className="back-btn" onClick={() => navigate('/check-unfollower')}>
+        Go Back to Find Unfollowers
       </button>
     </div>
   );
