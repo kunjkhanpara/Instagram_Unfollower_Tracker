@@ -4,6 +4,7 @@ import './App.css'; // Import the App.css file
 import CheckUnfollower from './components/CheckUnfollower';
 import Instructions from './components/Instructions'; // Import Instructions component
 import Ok from './components/ok'; // Import Ok component
+import Contact from './components/contact'; // Import Contact component
 
 function App() {
   return (
@@ -32,6 +33,8 @@ function App() {
           <Route path="/ok" element={<Ok />} />
           {/* Instructions Page Route */}
           <Route path="/instructions" element={<Instructions />} />
+          {/* Contact Page Route */}
+          <Route path="/contact" element={<Contact />} />
         </Routes>
       </div>
     </Router>
