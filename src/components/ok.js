@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import JSZip from 'jszip';
 import { jsPDF } from 'jspdf';
-import { useNavigate } from 'react-router-dom'; // Use this hook for navigation
+import { useNavigate } from 'react-router-dom';
 import './ok.css';
 
 const PendingRequests = () => {
   const [pendingRequests, setPendingRequests] = useState([]);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const navigate = useNavigate(); // Declare useNavigate hook
+  const navigate = useNavigate();
 
   const handleFileUpload = async (e) => {
     setIsLoading(true);
@@ -61,11 +61,9 @@ const PendingRequests = () => {
     doc.setFontSize(12);
 
     pendingRequests.forEach((username, index) => {
-      const text = `${index + 1}. ${username}`;
-      const yPosition = 30 + (index * 10) % 280; // Add a new page after filling current
-      const xPosition = 10;
+      const y = 30 + (index % 28) * 10;
       if (index > 0 && index % 28 === 0) doc.addPage();
-      doc.text(text, xPosition, yPosition);
+      doc.text(`${index + 1}. ${username}`, 10, y);
     });
 
     doc.save('pending-requests-list.pdf');
@@ -73,7 +71,11 @@ const PendingRequests = () => {
 
   return (
     <div className="file-upload-container">
-      <h2>Pending Request Accounts</h2>
+      <h2>Pending Follow Requests</h2>
+      <p className="description">
+        Upload a ZIP file containing your Instagram data to find out whom you’ve sent follow requests to.
+      </p>
+
       <div className="upload-section">
         <label htmlFor="file-upload" className="custom-upload-btn">
           Upload ZIP File
@@ -91,29 +93,28 @@ const PendingRequests = () => {
 
       {pendingRequests.length > 0 && (
         <div className="result-section">
-          <h3>Pending Requests ({pendingRequests.length})</h3>
+          <h3>Found {pendingRequests.length} Pending Request(s)</h3>
           <ul className="pending-requests-list">
             {pendingRequests.map((user, index) => (
               <li key={index}>
-                <a href={`https://instagram.com/${user}`} target="_blank" rel="noopener noreferrer" className="no-underline">
+                <a href={`https://instagram.com/${user}`} target="_blank" rel="noopener noreferrer">
                   {index + 1}. {user}
                 </a>
               </li>
             ))}
           </ul>
           <button className="download-btn" onClick={downloadResult}>
-            Download List as PDF
+            Download as PDF
           </button>
         </div>
       )}
 
-      {/* Updated navigation */}
       <button className="instructions-btn" onClick={() => navigate('/instructions')}>
-        How to Find the ZIP File
+        How to Get the ZIP File
       </button>
 
       <button className="back-btn" onClick={() => navigate('/check-unfollower')}>
-        Go Back to Find Unfollowers
+        Back to Unfollowers Checker
       </button>
     </div>
   );
