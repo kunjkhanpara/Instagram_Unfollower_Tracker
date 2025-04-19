@@ -12,6 +12,7 @@ const CheckUnfollower = () => {
 
   const handleFileUpload = async (e) => {
     setIsLoading(true);
+    setError(null); // Reset error state
     const file = e.target.files[0];
     if (!file) {
       setError('Please upload a valid ZIP file.');
@@ -22,45 +23,44 @@ const CheckUnfollower = () => {
     const zip = new JSZip();
     try {
       const unzipped = await zip.loadAsync(file);
-      let followers = [];
-      let following = [];
-
       const connectionsFolder = unzipped.folder('connections/followers_and_following');
       if (!connectionsFolder) {
-        setError('The folder "connections/followers_and_following" is missing.');
+        setError('The folder "connections/followers_and_following" is missing in the ZIP file.');
         setIsLoading(false);
         return;
       }
 
+      // Load followers
       const followersFile = connectionsFolder.file('followers_1.json');
-      if (followersFile) {
-        const content = await followersFile.async('string');
-        const jsonData = JSON.parse(content);
-        followers = jsonData.flatMap(item =>
-          item.string_list_data.map(innerItem => innerItem.value.toLowerCase())
-        );
-      } else {
-        setError('Missing "followers_1.json" file.');
+      if (!followersFile) {
+        setError('The file "followers_1.json" is missing.');
         setIsLoading(false);
         return;
       }
+      const followersContent = await followersFile.async('string');
+      const followersData = JSON.parse(followersContent);
+      const followers = followersData.flatMap(item =>
+        item.string_list_data.map(innerItem => innerItem.value.toLowerCase())
+      );
 
+      // Load following
       const followingFile = connectionsFolder.file('following.json');
-      if (followingFile) {
-        const content = await followingFile.async('string');
-        const jsonData = JSON.parse(content);
-        following = jsonData.relationships_following.map(item => item.string_list_data[0].value.toLowerCase());
-      } else {
-        setError('Missing "following.json" file.');
+      if (!followingFile) {
+        setError('The file "following.json" is missing.');
         setIsLoading(false);
         return;
       }
+      const followingContent = await followingFile.async('string');
+      const followingData = JSON.parse(followingContent);
+      const following = followingData.relationships_following.map(item =>
+        item.string_list_data[0].value.toLowerCase()
+      );
 
+      // Find non-followers
       const nonFollowersList = following.filter(user => !followers.includes(user));
       setNonFollowers(nonFollowersList);
-      setError(null);
     } catch (err) {
-      setError('Error processing the ZIP file.');
+      setError('An error occurred while processing the ZIP file. Please ensure the file is in the correct format.');
       console.error(err);
     } finally {
       setIsLoading(false);
@@ -116,7 +116,12 @@ const CheckUnfollower = () => {
           <ul className="non-followers-list">
             {nonFollowers.map((user, index) => (
               <li key={index}>
-                <a href={`https://instagram.com/${user}`} target="_blank" rel="noopener noreferrer" className="no-underline">
+                <a
+                  href={`https://instagram.com/${user}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="no-underline"
+                >
                   {index + 1}. {user}
                 </a>
               </li>
@@ -131,8 +136,6 @@ const CheckUnfollower = () => {
       <button className="instructions-btn" onClick={navigateToInstructions}>
         How to Find the ZIP File
       </button>
-
-      {/* "Check Pending Requests" button positioned below "How to Find the ZIP File" */}
       <button className="pending-requests-btn" onClick={navigateToPendingRequests}>
         Check Pending Requests
       </button>
