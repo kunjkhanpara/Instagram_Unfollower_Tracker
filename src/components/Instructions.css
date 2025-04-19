@@ -1,136 +1,139 @@
-/* Global Reset */
-* {
+/* Ensure the full page allows scrolling */
+html, body {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  background-color: #f0f8ff;
+  overflow-y: scroll; /* Enable scrolling for long content */
+  height: 100%; /* Full height for scrolling compatibility */
 }
 
-html, body {
-  width: 100%;
-  min-height: 100%;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f8f9fc;
-  color: #333;
-  overflow-x: hidden;
-}
-
-/* Scrollable Wrapper */
-.instructions-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  min-height: 100vh;
-  padding: 30px 20px;
-}
-
-/* Container */
+/* Center and style the instructions container */
 .instructions-container {
   background-color: #ffffff;
-  padding: 30px 40px;
-  border-radius: 12px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-  max-width: 800px;
-  width: 100%;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  margin: 40px auto; /* Center the container with space on top and bottom */
+  margin-top: 450px;
+  text-align: center;
+}
+
+/* Styling for headings and text */
+h2 {
+  font-size: 2.8rem;
+  color: #0077b6;
+  margin-bottom: 20px;
+}
+
+.intro-text {
+  font-size: 1.2rem;
+  color: #555;
   margin-bottom: 30px;
 }
 
-/* Headings */
-.instructions-container h2 {
-  font-size: 2.5rem;
-  color: #0077b6;
-  margin-bottom: 20px;
-  text-align: center;
-}
-
-.instructions-container h3 {
-  font-size: 1.5rem;
-  color: #023e8a;
-  margin-top: 30px;
-  margin-bottom: 10px;
-}
-
-/* Intro Text */
-.intro-text {
-  font-size: 1.1rem;
-  color: #555;
-  margin-bottom: 25px;
-  text-align: center;
-}
-
-/* Steps List */
 .steps-container {
-  margin-bottom: 25px;
+  text-align: left;
+  margin-bottom: 30px;
 }
 
 .steps-list {
+  list-style-type: decimal;
   padding-left: 20px;
-  font-size: 1.05rem;
-  color: #444;
-  line-height: 1.7;
+  font-size: 1.1rem;
+  color: #333;
 }
 
 .steps-list li {
-  margin-bottom: 12px;
+  margin-bottom: 15px;
 }
 
-/* Step Descriptions */
 .instruction-text {
-  font-size: 1.05rem;
-  color: #555;
-  margin-top: 8px;
-}
-
-/* Buttons */
-.navigation-buttons {
-  text-align: center;
-  margin-top: 30px;
-}
-
-.go-to-upload-button,
-.contact-button {
-  padding: 12px 28px;
   font-size: 1.1rem;
-  background-color: #0077b6;
-  color: #fff;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: all 0.3s ease-in-out;
-}
-
-.go-to-upload-button:hover,
-.contact-button:hover {
-  background-color: #023e8a;
-}
-
-/* Contact Section */
-.contact-container {
-  text-align: center;
+  color: #555;
   margin-top: 10px;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
+/* Button styling */
+.navigation-buttons {
+  margin-top: 30px;
+}
+
+.go-to-upload-button {
+  padding: 12px 30px;
+  background-color: #4caf50;
+  color: white;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.go-to-upload-button:hover {
+  background-color: #388e3c;
+}
+
+/* Contact Us button styling */
+.contact-container {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.contact-button {
+  padding: 12px 30px;
+  background-color: #0077b6;
+  color: white;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.contact-button:hover {
+  background-color: #005f86;
+}
+
+/* Responsive styles */
+@media (max-width: 767px) {
   .instructions-container {
     padding: 20px;
+    max-width: 100%;
+    margin: 20px auto;
   }
 
-  .instructions-container h2 {
+  h2 {
     font-size: 2rem;
   }
 
-  .instructions-container h3 {
-    font-size: 1.3rem;
+  .intro-text {
+    font-size: 1rem;
   }
 
-  .steps-list,
-  .intro-text,
+  .steps-list {
+    font-size: 1rem;
+  }
+
   .instruction-text {
     font-size: 1rem;
   }
 
-  .go-to-upload-button,
+  .go-to-upload-button {
+    font-size: 1rem;
+    padding: 10px 20px;
+  }
+
+  .steps-container {
+    margin-bottom: 20px;
+  }
+
+  .navigation-buttons {
+    margin-top: 20px;
+  }
+
   .contact-button {
     font-size: 1rem;
     padding: 10px 20px;
@@ -138,11 +141,7 @@ html, body {
 }
 
 @media (max-width: 480px) {
-  .instructions-container h2 {
-    font-size: 1.6rem;
-  }
-
-  .instructions-wrapper {
-    padding: 20px 10px;
+  .instructions-container {
+    margin: 10px auto;
   }
 }

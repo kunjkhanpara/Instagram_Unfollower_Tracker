@@ -14,11 +14,10 @@ const Instructions = () => {
   };
 
   return (
-    <div className="instructions-wrapper">
+    <div>
       <div className="instructions-container">
         <h2><strong>How to Get Your Instagram ZIP File</strong></h2>
         <p className="intro-text"><strong>Follow these easy steps to download your Instagram data:</strong></p>
-
         <div className="steps-container">
           <ol className="steps-list">
             <li>Go to your Instagram profile and open the top-right menu.</li>
@@ -30,18 +29,14 @@ const Instructions = () => {
             <li>You will receive an email from Instagram with a <strong>"Download Your Information"</strong> link.</li>
           </ol>
         </div>
-
         <h3><strong>Step 2: Download the ZIP</strong></h3>
         <p className="instruction-text"><strong>Once you receive the email, click on the "Download Your Information" link to get your ZIP file.</strong></p>
-
         <h3><strong>Step 3: Upload the ZIP</strong></h3>
         <p className="instruction-text"><strong>Upload the ZIP file here to check who doesn’t follow you back.</strong></p>
-
         <div className="navigation-buttons">
           <button className="go-to-upload-button" onClick={handleBackClick}><strong>Go to Upload File</strong></button>
         </div>
       </div>
-
       <div className="contact-container">
         <button className="contact-button" onClick={handleContactClick}><strong>Contact Us</strong></button>
       </div>

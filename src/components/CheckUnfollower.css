@@ -86,19 +86,6 @@ h2 {
     border-bottom: none;
 }
 
-/* 🔥 UPDATED LINK STYLING FOR VISIBILITY */
-.non-followers-list a {
-    color: #007bff;
-    text-decoration: underline;
-    font-weight: 500;
-    transition: color 0.3s ease, text-decoration 0.3s ease;
-}
-
-.non-followers-list a:hover {
-    color: #0056b3;
-    text-decoration: underline wavy;
-}
-
 .download-btn {
     padding: 10px 20px;
     background-color: #007bff;
@@ -131,6 +118,14 @@ h2 {
     background-color: #218838;
 }
 
+.no-underline {
+    text-decoration: none;
+}
+
+.non-followers-list a:hover {
+    text-decoration: underline;
+}
+
 .pending-requests-btn {
     padding: 10px 20px;
     background-color: #17a2b8;
@@ -147,7 +142,6 @@ h2 {
     background-color: #117a8b;
 }
 
-/* RESPONSIVE STYLES */
 @media screen and (max-width: 1024px) {
     .file-upload-container {
         padding: 20px;
