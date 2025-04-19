@@ -172,7 +172,7 @@ h2 {
 /* Ensuring scroll behavior for smaller devices */
 @media (max-width: 480px) {
   .pending-requests-list {
-      max-height:250px;
+      max-height:450px;
       overflow-y: scroll;
   }
 
