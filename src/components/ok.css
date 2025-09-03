@@ -95,7 +95,7 @@ h2 {
 }
 
 .pending-requests-list {
-  max-height: 440px;
+  max-height: 400px;
   overflow-y: auto;
   background: #f9fafb;
   border-radius: 10px;
