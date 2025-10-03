@@ -12,8 +12,9 @@ const CheckUnfollower = () => {
 
   const handleFileUpload = async (e) => {
     setIsLoading(true);
-    setError(null); // Reset error state
+    setError(null);
     const file = e.target.files[0];
+
     if (!file) {
       setError('Please upload a valid ZIP file.');
       setIsLoading(false);
@@ -23,15 +24,9 @@ const CheckUnfollower = () => {
     const zip = new JSZip();
     try {
       const unzipped = await zip.loadAsync(file);
-      const connectionsFolder = unzipped.folder('connections/followers_and_following');
-      if (!connectionsFolder) {
-        setError('The folder "connections/followers_and_following" is missing in the ZIP file.');
-        setIsLoading(false);
-        return;
-      }
 
-      // Load followers
-      const followersFile = connectionsFolder.file('followers_1.json');
+      // 🔹 Find followers_1.json anywhere in the zip
+      const followersFile = unzipped.file(/followers_1\.json$/i)[0];
       if (!followersFile) {
         setError('The file "followers_1.json" is missing.');
         setIsLoading(false);
@@ -43,8 +38,8 @@ const CheckUnfollower = () => {
         item.string_list_data.map(innerItem => innerItem.value.toLowerCase())
       );
 
-      // Load following
-      const followingFile = connectionsFolder.file('following.json');
+      // 🔹 Find following.json anywhere in the zip
+      const followingFile = unzipped.file(/following\.json$/i)[0];
       if (!followingFile) {
         setError('The file "following.json" is missing.');
         setIsLoading(false);
@@ -53,12 +48,13 @@ const CheckUnfollower = () => {
       const followingContent = await followingFile.async('string');
       const followingData = JSON.parse(followingContent);
       const following = followingData.relationships_following.map(item =>
-        item.string_list_data[0].value.toLowerCase()
+        (item.title || item.string_list_data[0].value).toLowerCase()
       );
 
-      // Find non-followers
+      // 🔹 Find non-followers
       const nonFollowersList = following.filter(user => !followers.includes(user));
       setNonFollowers(nonFollowersList);
+
     } catch (err) {
       setError('An error occurred while processing the ZIP file. Please ensure the file is in the correct format.');
       console.error(err);
@@ -75,7 +71,7 @@ const CheckUnfollower = () => {
 
     nonFollowers.forEach((username, index) => {
       const text = `${index + 1}. ${username}`;
-      const yPosition = 30 + (index * 10) % 280; // Add a new page after filling current
+      const yPosition = 30 + (index * 10) % 280; 
       const xPosition = 10;
       if (index > 0 && index % 28 === 0) doc.addPage();
       doc.text(text, xPosition, yPosition);
