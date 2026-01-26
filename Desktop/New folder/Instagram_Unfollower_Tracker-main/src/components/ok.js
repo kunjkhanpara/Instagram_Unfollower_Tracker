@@ -82,7 +82,6 @@ const PendingRequests = () => {
                   href={`https://instagram.com/${user}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="no-underline"
                 >
                   {index + 1}. {user}
                 </a>

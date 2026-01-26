@@ -31,7 +31,7 @@ const CheckUnfollower = () => {
         return;
       }
 
-      // ---------- READ FOLLOWERS ----------
+      // READ FOLLOWERS
       const followersFile = connectionsFolder.file('followers_1.json');
       if (!followersFile) {
         setError('followers_1.json is missing.');
@@ -47,7 +47,7 @@ const CheckUnfollower = () => {
         .filter(Boolean)
         .map(u => u.toLowerCase());
 
-      // ---------- READ FOLLOWING ----------
+      // READ FOLLOWING
       const followingFile = connectionsFolder.file('following.json');
       if (!followingFile) {
         setError('following.json is missing.');
@@ -63,9 +63,8 @@ const CheckUnfollower = () => {
         .filter(Boolean)
         .map(u => u.toLowerCase());
 
-      // ---------- COMPARE ----------
+      // COMPARE
       const nonFollowersList = following.filter(user => !followers.includes(user));
-
       setNonFollowers(nonFollowersList);
 
     } catch (err) {
@@ -78,7 +77,7 @@ const CheckUnfollower = () => {
 
   return (
     <div className="file-upload-container">
-      <h2>Check Who Isn't Following You Back</h2>
+      <h2>Who Isn’t Following You Back</h2>
 
       <div className="upload-section">
         <label htmlFor="file-upload" className="custom-upload-btn">
@@ -106,7 +105,6 @@ const CheckUnfollower = () => {
                   href={`https://instagram.com/${user}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="no-underline"
                 >
                   {index + 1}. {user}
                 </a>
