@@ -9,6 +9,19 @@ const CheckUnfollower = () => {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
+  const openInstagramProfile = (username) => {
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+    if (isMobile) {
+      window.location.href = `instagram://user?username=${username}`;
+      setTimeout(() => {
+        window.location.href = `https://instagram.com/${username}`;
+      }, 1000);
+    } else {
+      window.open(`https://instagram.com/${username}`, "_blank");
+    }
+  };
+
   const handleFileUpload = async (e) => {
     setIsLoading(true);
     setError("");
@@ -100,13 +113,12 @@ const CheckUnfollower = () => {
             <ul className="user-list">
               {nonFollowers.map((user, index) => (
                 <li key={index}>
-                  <a
-                    href={`https://instagram.com/${user}`}
-                    target="_blank"
-                    rel="noreferrer"
+                  <button
+                    onClick={() => openInstagramProfile(user)}
+                    className="user-link"
                   >
                     {index + 1}. {user}
-                  </a>
+                  </button>
                 </li>
               ))}
             </ul>
