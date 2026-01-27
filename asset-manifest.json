@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/Instagram_Unfollower_Tracker/static/css/main.368aea03.css",
-    "main.js": "/Instagram_Unfollower_Tracker/static/js/main.7bf16a87.js",
+    "main.js": "/Instagram_Unfollower_Tracker/static/js/main.33ba9f50.js",
     "static/media/instructions-video.mp4": "/Instagram_Unfollower_Tracker/static/media/instructions-video.29579a824d2ba172e98e.mp4",
     "index.html": "/Instagram_Unfollower_Tracker/index.html",
     "main.368aea03.css.map": "/Instagram_Unfollower_Tracker/static/css/main.368aea03.css.map",
-    "main.7bf16a87.js.map": "/Instagram_Unfollower_Tracker/static/js/main.7bf16a87.js.map"
+    "main.33ba9f50.js.map": "/Instagram_Unfollower_Tracker/static/js/main.33ba9f50.js.map"
   },
   "entrypoints": [
     "static/css/main.368aea03.css",
-    "static/js/main.7bf16a87.js"
+    "static/js/main.33ba9f50.js"
   ]
 }
