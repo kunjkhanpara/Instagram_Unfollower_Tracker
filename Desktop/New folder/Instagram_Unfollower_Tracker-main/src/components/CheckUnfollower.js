@@ -9,17 +9,17 @@ const CheckUnfollower = () => {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
-  const openInstagramProfile = (username) => {
-    const appLink = `instagram://user?username=${username}`;
-    const webLink = `https://www.instagram.com/${username}`;
+  // Detect mobile device
+  const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 
-    // Try opening Instagram app
-    window.location.href = appLink;
-
-    // Fallback to browser after 1 second if app not opened
-    setTimeout(() => {
-      window.open(webLink, "_blank");
-    }, 1000);
+  const getProfileLink = (username) => {
+    if (isMobile) {
+      // Open Instagram app on mobile
+      return `instagram://user?username=${username}`;
+    } else {
+      // Open browser on desktop
+      return `https://www.instagram.com/${username}`;
+    }
   };
 
   const handleFileUpload = async (e) => {
@@ -113,12 +113,13 @@ const CheckUnfollower = () => {
             <ul className="user-list">
               {nonFollowers.map((user, index) => (
                 <li key={index}>
-                  <button
-                    className="profile-link-btn"
-                    onClick={() => openInstagramProfile(user)}
+                  <a
+                    href={getProfileLink(user)}
+                    target={isMobile ? "_self" : "_blank"}
+                    rel="noreferrer"
                   >
                     {index + 1}. {user}
-                  </button>
+                  </a>
                 </li>
               ))}
             </ul>

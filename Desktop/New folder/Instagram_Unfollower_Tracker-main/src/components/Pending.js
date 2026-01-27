@@ -9,15 +9,15 @@ const Pending = () => {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
-  const openInstagramProfile = (username) => {
-    const appLink = `instagram://user?username=${username}`;
-    const webLink = `https://www.instagram.com/${username}`;
+  // Detect mobile device
+  const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 
-    window.location.href = appLink;
-
-    setTimeout(() => {
-      window.open(webLink, "_blank");
-    }, 1000);
+  const getProfileLink = (username) => {
+    if (isMobile) {
+      return `instagram://user?username=${username}`;
+    } else {
+      return `https://www.instagram.com/${username}`;
+    }
   };
 
   const handleFileUpload = async (e) => {
@@ -77,12 +77,13 @@ const Pending = () => {
             <ul className="user-list">
               {pendingRequests.map((user, index) => (
                 <li key={index}>
-                  <button
-                    className="profile-link-btn"
-                    onClick={() => openInstagramProfile(user)}
+                  <a
+                    href={getProfileLink(user)}
+                    target={isMobile ? "_self" : "_blank"}
+                    rel="noreferrer"
                   >
                     {index + 1}. {user}
-                  </button>
+                  </a>
                 </li>
               ))}
             </ul>
