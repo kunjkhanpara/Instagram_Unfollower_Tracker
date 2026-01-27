@@ -1,42 +1,39 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import './App.css'; // Import the App.css file
-import CheckUnfollower from './components/CheckUnfollower';
-import Instructions from './components/Instructions'; // Import Instructions component
-import Ok from './components/ok'; // Import Ok component
-import Contact from './components/contact'; // Import Contact component
+import React from "react";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import "./App.css";
+import CheckUnfollower from "./components/CheckUnfollower";
+import Instructions from "./components/Instructions";
+import Pending from "./components/Pending";
+import Contact from "./components/Contact";
 
 function App() {
   return (
-    <Router basename="/Instagram_Unfollower_Tracker"> {/* Add basename for GitHub Pages */}
-      <div className="App">
-        <Routes>
-          {/* Home Page Route */}
-          <Route
-            path="/"
-            element={
-              <div className="home-container">
-                <h1 className="home-heading">Check Who Isn't Following You Back on Instagram</h1>
-                <p className="home-description">
-                  Tired of following accounts that don't return the follow? 
-                  Upload your followers and following data (just one file) 
-                  to quickly find out who’s not following you back on Instagram. 
-                  Take control of your account and clean up your following list!
+    <Router basename="/Instagram_Unfollower_Tracker">
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <div className="home-bg">
+              <div className="home-card">
+                <h1>Instagram Unfollower Tracker</h1>
+                <p>
+                  Upload your Instagram ZIP file and find:
+                  <br />• Who unfollowed you  
+                  <br />• Who never followed you back  
+                  <br />• Which requests are pending
                 </p>
-                <Link to="/check-unfollower" className="upload-btn">Let's Start</Link>
+                <Link to="/check-unfollower" className="start-button">
+                  Start Now
+                </Link>
               </div>
-            }
-          />
-          {/* CheckUnfollower Page Route */}
-          <Route path="/check-unfollower" element={<CheckUnfollower />} />
-          {/* Ok Page Route */}
-          <Route path="/ok" element={<Ok />} />
-          {/* Instructions Page Route */}
-          <Route path="/instructions" element={<Instructions />} />
-          {/* Contact Page Route */}
-          <Route path="/contact" element={<Contact />} />
-        </Routes>
-      </div>
+            </div>
+          }
+        />
+        <Route path="/check-unfollower" element={<CheckUnfollower />} />
+        <Route path="/pending" element={<Pending />} />
+        <Route path="/instructions" element={<Instructions />} />
+        <Route path="/contact" element={<Contact />} />
+      </Routes>
     </Router>
   );
 }

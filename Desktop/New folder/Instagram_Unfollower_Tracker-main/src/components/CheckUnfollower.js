@@ -1,126 +1,133 @@
-import React, { useState } from 'react';
-import JSZip from 'jszip';
-import { useNavigate } from 'react-router-dom';
-import './CheckUnfollower.css';
+import React, { useState } from "react";
+import JSZip from "jszip";
+import { useNavigate } from "react-router-dom";
+import "./CheckUnfollower.css";
 
 const CheckUnfollower = () => {
   const [nonFollowers, setNonFollowers] = useState([]);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleFileUpload = async (e) => {
     setIsLoading(true);
-    setError(null);
+    setError("");
     setNonFollowers([]);
 
     const file = e.target.files[0];
     if (!file) {
-      setError('Please upload a valid ZIP file.');
+      setError("Please upload a valid ZIP file.");
       setIsLoading(false);
       return;
     }
 
     try {
       const zip = await JSZip.loadAsync(file);
+      const connectionsFolder = zip.folder("connections/followers_and_following");
 
-      const connectionsFolder = zip.folder('connections/followers_and_following');
       if (!connectionsFolder) {
         setError('Folder "connections/followers_and_following" is missing.');
         setIsLoading(false);
         return;
       }
 
-      // READ FOLLOWERS
-      const followersFile = connectionsFolder.file('followers_1.json');
+      const followersFile = connectionsFolder.file("followers_1.json");
       if (!followersFile) {
-        setError('followers_1.json is missing.');
+        setError("followers_1.json is missing.");
         setIsLoading(false);
         return;
       }
 
-      const followersText = await followersFile.async('string');
+      const followersText = await followersFile.async("string");
       const followersJson = JSON.parse(followersText);
 
       const followers = followersJson
-        .map(item => item.string_list_data?.[0]?.value)
+        .map((item) => item.string_list_data?.[0]?.value)
         .filter(Boolean)
-        .map(u => u.toLowerCase());
+        .map((u) => u.toLowerCase());
 
-      // READ FOLLOWING
-      const followingFile = connectionsFolder.file('following.json');
+      const followingFile = connectionsFolder.file("following.json");
       if (!followingFile) {
-        setError('following.json is missing.');
+        setError("following.json is missing.");
         setIsLoading(false);
         return;
       }
 
-      const followingText = await followingFile.async('string');
+      const followingText = await followingFile.async("string");
       const followingJson = JSON.parse(followingText);
 
       const following = followingJson.relationships_following
-        .map(item => item.title)
+        .map((item) => item.title)
         .filter(Boolean)
-        .map(u => u.toLowerCase());
+        .map((u) => u.toLowerCase());
 
-      // COMPARE
-      const nonFollowersList = following.filter(user => !followers.includes(user));
+      const nonFollowersList = following.filter(
+        (user) => !followers.includes(user)
+      );
+
       setNonFollowers(nonFollowersList);
-
     } catch (err) {
-      console.error(err);
-      setError('Error processing ZIP file. Please upload original Instagram ZIP.');
+      setError("Error processing ZIP file. Please upload original Instagram ZIP.");
     } finally {
       setIsLoading(false);
     }
   };
 
   return (
-    <div className="file-upload-container">
-      <h2>Who Isn’t Following You Back</h2>
+    <div className="page-bg">
+      <header className="main-header">
+        <h1>Instagram Unfollower Tracker</h1>
+      </header>
 
-      <div className="upload-section">
-        <label htmlFor="file-upload" className="custom-upload-btn">
+      <main className="card-container">
+        <h2>Who Isn’t Following You Back</h2>
+        <p className="page-description">
+          Upload your Instagram ZIP file and instantly see which accounts you
+          follow that are not following you back.
+        </p>
+
+        <label className="upload-button">
           Upload ZIP File
+          <input type="file" accept=".zip" hidden onChange={handleFileUpload} />
         </label>
-        <input
-          id="file-upload"
-          type="file"
-          accept=".zip"
-          onChange={handleFileUpload}
-          className="upload-input-hidden"
-        />
 
-        {isLoading && <p className="loading-spinner">Processing... Please wait.</p>}
-        {error && <p className="error-message">{error}</p>}
-      </div>
+        {isLoading && <p className="info-text">Processing... Please wait.</p>}
+        {error && <p className="error-text">{error}</p>}
 
-      {nonFollowers.length > 0 && (
-        <div className="result-section">
-          <h3>Non-Followers ({nonFollowers.length})</h3>
-          <ul className="non-followers-list">
-            {nonFollowers.map((user, index) => (
-              <li key={index}>
-                <a
-                  href={`https://instagram.com/${user}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {index + 1}. {user}
-                </a>
-              </li>
-            ))}
-          </ul>
+        {nonFollowers.length > 0 && (
+          <div className="results-box">
+            <h3>Non-Followers ({nonFollowers.length})</h3>
+            <ul className="user-list">
+              {nonFollowers.map((user, index) => (
+                <li key={index}>
+                  <a
+                    href={`https://instagram.com/${user}`}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    {index + 1}. {user}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        <div className="nav-buttons">
+          <button onClick={() => navigate("/instructions")}>
+            How to Download ZIP
+          </button>
+          <button onClick={() => navigate("/pending")}>
+            Check Pending Requests
+          </button>
+          <button onClick={() => navigate("/contact")}>Contact</button>
+          <button onClick={() => navigate("/")}>Home</button>
         </div>
-      )}
+      </main>
 
-      <button className="instructions-btn" onClick={() => navigate('/instructions')}>
-        How to Find the ZIP File
-      </button>
-
-      <button className="pending-requests-btn" onClick={() => navigate('/ok')}>
-        Check Pending Requests
-      </button>
+      <footer className="main-footer">
+        <p>© 2026 Instagram Unfollower Tracker</p>
+      </footer>
     </div>
   );
 };
