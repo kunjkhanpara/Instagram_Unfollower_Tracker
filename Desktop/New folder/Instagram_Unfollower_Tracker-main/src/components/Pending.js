@@ -10,16 +10,14 @@ const Pending = () => {
   const navigate = useNavigate();
 
   const openInstagramProfile = (username) => {
-    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    const appLink = `instagram://user?username=${username}`;
+    const webLink = `https://www.instagram.com/${username}`;
 
-    if (isMobile) {
-      window.location.href = `instagram://user?username=${username}`;
-      setTimeout(() => {
-        window.location.href = `https://instagram.com/${username}`;
-      }, 1000);
-    } else {
-      window.open(`https://instagram.com/${username}`, "_blank");
-    }
+    window.location.href = appLink;
+
+    setTimeout(() => {
+      window.open(webLink, "_blank");
+    }, 1000);
   };
 
   const handleFileUpload = async (e) => {
@@ -42,9 +40,8 @@ const Pending = () => {
       const content = await fileData.async("string");
       const jsonData = JSON.parse(content);
 
-      const users = jsonData.relationships_follow_requests_sent.flatMap(
-        (item) =>
-          item.string_list_data.map((i) => i.value.toLowerCase())
+      const users = jsonData.relationships_follow_requests_sent.flatMap((item) =>
+        item.string_list_data.map((i) => i.value.toLowerCase())
       );
 
       setPendingRequests(users);
@@ -81,8 +78,8 @@ const Pending = () => {
               {pendingRequests.map((user, index) => (
                 <li key={index}>
                   <button
+                    className="profile-link-btn"
                     onClick={() => openInstagramProfile(user)}
-                    className="user-link"
                   >
                     {index + 1}. {user}
                   </button>
@@ -93,12 +90,8 @@ const Pending = () => {
         )}
 
         <div className="nav-buttons">
-          <button onClick={() => navigate("/check-unfollower")}>
-            Unfollowers
-          </button>
-          <button onClick={() => navigate("/instructions")}>
-            Instructions
-          </button>
+          <button onClick={() => navigate("/check-unfollower")}>Unfollowers</button>
+          <button onClick={() => navigate("/instructions")}>Instructions</button>
           <button onClick={() => navigate("/contact")}>Contact</button>
           <button onClick={() => navigate("/")}>Home</button>
         </div>
