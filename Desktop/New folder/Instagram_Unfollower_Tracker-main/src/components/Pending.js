@@ -7,45 +7,81 @@ const Pending = () => {
   const [pendingRequests, setPendingRequests] = useState([]);
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
   const navigate = useNavigate();
 
-  // Detect mobile device
-  const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+  const isMobile =
+    /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 
-  const getProfileLink = (username) => {
-    if (isMobile) {
-      return `instagram://user?username=${username}`;
-    } else {
-      return `https://www.instagram.com/${username}`;
-    }
-  };
+  const getProfileLink = (username) =>
+    isMobile
+      ? `instagram://user?username=${username}`
+      : `https://www.instagram.com/${username}`;
 
   const handleFileUpload = async (e) => {
     setIsLoading(true);
     setError("");
     setPendingRequests([]);
 
-    const file = e.target.files[0];
-    if (!file) {
-      setError("Please upload a ZIP file.");
-      setIsLoading(false);
-      return;
-    }
-
     try {
-      const zip = await JSZip.loadAsync(file);
-      const folder = zip.folder("connections/followers_and_following");
-      const fileData = folder.file("pending_follow_requests.json");
+      const file = e.target.files[0];
 
-      const content = await fileData.async("string");
+      if (!file) {
+        setError("Please upload a ZIP file.");
+        return;
+      }
+
+      const zip = await JSZip.loadAsync(file);
+
+      let pendingFile = null;
+
+      Object.keys(zip.files).forEach((fileName) => {
+        if (
+          fileName.includes("pending_follow_requests") &&
+          fileName.endsWith(".json")
+        ) {
+          pendingFile = zip.files[fileName];
+        }
+      });
+
+      if (!pendingFile) {
+        setError("pending_follow_requests.json not found.");
+        return;
+      }
+
+      const content = await pendingFile.async("string");
       const jsonData = JSON.parse(content);
 
-      const users = jsonData.relationships_follow_requests_sent.flatMap((item) =>
-        item.string_list_data.map((i) => i.value.toLowerCase())
-      );
+      let users = [];
 
-      setPendingRequests(users);
-    } catch {
+      // NEW Instagram format
+      if (Array.isArray(jsonData)) {
+        users = jsonData
+          .map((item) =>
+            item.label_values?.find(
+              (v) => v.label === "Username"
+            )?.value
+          )
+          .filter(Boolean)
+          .map((u) => u.toLowerCase());
+      }
+
+      // OLD Instagram format
+      else if (
+        jsonData.relationships_follow_requests_sent
+      ) {
+        users =
+          jsonData.relationships_follow_requests_sent.flatMap(
+            (item) =>
+              item.string_list_data.map((i) =>
+                i.value.toLowerCase()
+              )
+          );
+      }
+
+      setPendingRequests([...new Set(users)]);
+    } catch (err) {
+      console.error(err);
       setError("Error processing ZIP file.");
     } finally {
       setIsLoading(false);
@@ -60,20 +96,33 @@ const Pending = () => {
 
       <main className="card-container">
         <p className="page-description">
-          Upload your Instagram ZIP file to see which follow requests are still pending.
+          Upload your Instagram ZIP file to see pending requests.
         </p>
 
         <label className="upload-button">
           Upload ZIP File
-          <input type="file" hidden accept=".zip" onChange={handleFileUpload} />
+          <input
+            type="file"
+            hidden
+            accept=".zip"
+            onChange={handleFileUpload}
+          />
         </label>
 
-        {isLoading && <p className="info-text">Processing...</p>}
-        {error && <p className="error-text">{error}</p>}
+        {isLoading && (
+          <p className="info-text">Processing...</p>
+        )}
+
+        {error && (
+          <p className="error-text">{error}</p>
+        )}
 
         {pendingRequests.length > 0 && (
           <div className="results-box">
-            <h3>Pending Requests ({pendingRequests.length})</h3>
+            <h3>
+              Pending Requests ({pendingRequests.length})
+            </h3>
+
             <ul className="user-list">
               {pendingRequests.map((user, index) => (
                 <li key={index}>
@@ -91,10 +140,33 @@ const Pending = () => {
         )}
 
         <div className="nav-buttons">
-          <button onClick={() => navigate("/check-unfollower")}>Unfollowers</button>
-          <button onClick={() => navigate("/instructions")}>Instructions</button>
-          <button onClick={() => navigate("/contact")}>Contact</button>
-          <button onClick={() => navigate("/")}>Home</button>
+          <button
+            onClick={() =>
+              navigate("/check-unfollower")
+            }
+          >
+            Unfollowers
+          </button>
+
+          <button
+            onClick={() =>
+              navigate("/instructions")
+            }
+          >
+            Instructions
+          </button>
+
+          <button
+            onClick={() =>
+              navigate("/contact")
+            }
+          >
+            Contact
+          </button>
+
+          <button onClick={() => navigate("/")}>
+            Home
+          </button>
         </div>
       </main>
 
